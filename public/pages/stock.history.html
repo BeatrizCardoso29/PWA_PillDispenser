@@ -1,15 +1,9 @@
-<?php
-$user_name = $_REQUEST['username'];
-?>
-
-<!DOCTYPE HTML>
-
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Pill Dispenser</title>
+  <title>Pill Dispenser </title>
 
   <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet">  <!-- materialize icons, css & js -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -20,16 +14,14 @@ $user_name = $_REQUEST['username'];
   <link rel="apple-touch-icon" href="/public/img/icons/icon-96x96.png">
   <meta name="apple-mobile-web-app-status-bar" content="#FFE1C4">
   <meta name="theme-color" content="#FFE1C4">
-
 </head>
-
 
 <body class="grey lighten-4">
 
   <!-- top nav -->
   <nav class="z-depth-0">
     <div class="nav-wrapper container">
-      <a href="/">Food<span>Ninja</span></a>
+      <a href="/">Pill<span>Dispenser</span></a>
       <span class="right grey-text text-darken-1">
         <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
       </span>
@@ -37,24 +29,75 @@ $user_name = $_REQUEST['username'];
   </nav>
 
   <!-- side nav -->
+
   <ul id="side-menu" class="sidenav side-menu">
-    <li><a class="subheader">FOODNINJA</a></li>
+    <li><a class="subheader">PillDispenser</a></li>
     <li><a href="/" class="waves-effect">Home</a></li>
-    <li><a href="/pages/about.html" class="waves-effect">About</a></li>
+    <li><a href="/public/pages/about.html" class="waves-effect">About</a></li>
     <li><div class="divider"></div></li>
-    <li><a href="/pages/contact.html" class="waves-effect">
+    <li><a href="/public/pages/contact.html" class="waves-effect">
       <i class="material-icons">mail_outline</i>Contact</a>
     </li>
-  </ul>
+</ul>
 
-  <!-- content -->
-  <div class="container grey-text">
-    <h5 class="center">About Food Ninja</h5>
-    <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ducimus, porro voluptatum illum veniam eaque sunt sit labore provident eligendi! Voluptate amet suscipit inventore unde maxime atque impedit officia nobis laboriosam!</p>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptatibus omnis, ea doloremque exercitationem id necessitatibus. Voluptatem officiis cupiditate commodi totam, hic laborum est ducimus amet iure, non dignissimos illo.</p>
+
+  <!-- medication for today -->
+  <div class="medication container grey-text text-darken-1">
+  <label for="todaymedication"> Your medication for today:</label>
   </div>
 
-  <script src="/js/app.js"></script>
-  <script src="/js/ui.js"></script>
+  <div class="center">
+    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
+      <i class="material-icons">add</i>
+    </a>
+  </div>
+
+  <!-- add medication side nav -->
+  <div id="side-form" class="sidenav side-form">
+    <form class="add-medication container section">
+      <h6 >New pill</h6>
+      <div class="divider"></div>
+      <div class="input-field">
+        <input placeholder="e.g. trifen, ..." id="pill_name" type="text" class="validate">
+        <label for="pill_name"> Name </label>
+      </div>
+      <div class="input-field">
+        <input placeholder=" máx 30" id="qtd" type="number" class="validate">
+        <label for="qtd"> Number of pills </label>
+      </div>
+      <div class="input-field">
+        <input placeholder="e.g. 1 to 8" id="deposit" type="number" class="validate">
+        <label for="deposit"> Deposit number </label>
+      </div>
+      <div class="input-field center">
+        <button class="btn-small">Add</button>
+      </div>
+    </form>
+  </div>
+
+
+<!-- FIREBASE -->
+  <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>
+  <script>
+    // Initialize Firebase
+    var config = {
+      apiKey: "AIzaSyDBNffDYpnX2s-ix75O33I0gHfcW4hcPFA",
+      authDomain: "pill-dispenser-pwa-8dc52.firebaseapp.com",
+      projectId: "pill-dispenser-pwa-8dc52",
+      storageBucket: "pill-dispenser-pwa-8dc52.appspot.com",
+      messagingSenderId: "519016450812",
+      appId: "1:519016450812:web:579a7f5809c3dfcfba6579",
+      measurementId: "G-KYB70DBE7M"
+      };
+      firebase.initializeApp(config);
+      const db = firebase.firestore();
+  </script>
+  
+
+ 
+  <script src="/public/js/app.js"></script>
+  <script src="/public/js/medication.js"></script>
+
 </body>
 </html>

@@ -4,10 +4,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Med Master</title>
+
   <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet"> 
   <!-- materialize icons, css & js -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" href="/public/css/styles.css" rel="stylesheet">
+  <link type="text/css" href="\public\css\homepage.css" rel="stylesheet">
   <script type="text/javascript" src="/public/js/materialize.min.js"></script>
   <link rel="manifest" href="/public/manifest.json">
   <!-- ios support -->
@@ -16,6 +17,92 @@
   <meta name="theme-color" content="#FFE1C4">
 </head>
 
+<body class="grey lighten-4">
+  
+  <!-- top nav -->
+  <nav class="z-depth-0">
+    <div class="nav-wrapper container">
+      <img src="/public/img/icons/sem_fundo1.png" alt="user thumb">
+      <span class="right grey-text text-darken-1">
+      </span>
+    </div>
+  </nav>
+
+	<div class="section">
+		<div class="container">
+			<div class="row full-height justify-content-center">
+				<div class="col-12 text-center align-self-center py-5">
+					<div class="section pb-5 pt-5 pt-sm-2 text-center">
+						<h6 class="mb-0 pb-3"><span>Log In </span><span>Sign Up</span></h6>
+			          	<input class="checkbox" type="checkbox" id="reg-log" name="reg-log"/>
+			          	<label for="reg-log"></label>
+						<div class="card-3d-wrap mx-auto">
+							<div class="card-3d-wrapper">
+								<div class="card-front">
+									<div class="center-wrap">
+										<form class="login-user section text-center">
+											<h4 class="mb-4 pb-3">Log In</h4>
+											<div class="form-group mt-2">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="email">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div id="error-email2"></div>
+											<div class="form-group mt-2">
+												<div class="password-wrapper">
+												  <input type="password" name="logpass" class="form-style" placeholder="Your Password" id="password">
+												  <button type="button" class="password-toggle-btn" aria-label="Toggle password visibility">
+													<i class="material-icons">remove_red_eye</i>
+												  </button>
+												</div>
+											  </div>
+											<div id="error-password"></div>
+											<div class="input-field center">
+												<button class="btn-small">submit</button>
+											</div>
+			      						</form>
+			      					</div>
+			      				</div>
+								<div class="card-back">
+									<div class="center-wrap">
+										<form class="add-user section text-center">
+											<h4 class="mb-4 pb-3">Sign Up</h4>
+											<div class="form-group">
+												<input id="username" type="text" name="logname" class="form-style" placeholder="Your Full Name">
+												<i class="input-icon uil uil-user"></i>
+                      </div>
+											<div class="form-group mt-2">
+												<input type="email" name="logemail" class="form-style" placeholder="Your Email" id="email">
+												<i class="input-icon uil uil-at"></i>
+											</div>	
+											<div id="error-email"></div>
+											<div class="form-group mt-2">
+												<div class="password-wrapper">
+												  <input type="text" name="logpass" class="form-style" placeholder="Your Password" id="password">
+												</div>
+											  </div>
+                      <div class="form-group mt-2">
+												<input type="text" name="pathology" class="form-style" placeholder="Your pathology" id="pathology">
+												<i class="input-icon uil uil-lock-alt"></i>
+											</div>
+                      <div class="form-group mt-2">
+												<input type="file" name="photo" id="photo" style="display: none;">
+												<label for="photo" class="file-label">
+												Choose a photo:
+												<span class="file-name"></span>
+												</label>
+											</div>
+											<div class="input-field center">
+                        <button class="btn-small">submit</button>
+						
+                      </div>
+			      				</form>
+			      			</div>
+			      		</div>
+			      	</div>
+		      	</div>
+	      	</div>
+	    </div>
+	</div>
 
 
 <!-- FIREBASE -->
@@ -36,12 +123,9 @@
       const db = firebase.firestore();
   </script>
 
-  <script src="/public/js/db.js"></script>
+
   <script src="/public/js/app.js"></script>
-  <script src="/public/js/ui.js"></script>
-  <script src="/public/js/medication.js"></script>
-  <script src="/public/js/stock.js"></script>
-  <script src="/public/js/user.js"></script>
+  <script src="/public/js/test.js"></script>
 
 </body>
 </html>

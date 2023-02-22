@@ -1,18 +1,17 @@
 /* colours */
-:root{
-  --primary: #FFE9D2;
-  --secondary: #FFE1C4;
-  --title: #FF8816;
-}
 
-/* layout styles */
+:root{
+  --primary: #ffffff;
+  --secondary: #b1fae8;
+  --title: #1de9b6;
+}
 nav{
-  background: var(--primary);
-  border-bottom: 10px solid var(--secondary);
+  background: var(--title);
+  border-bottom: 10px solid var(--title);
 }
 nav a{
   text-transform: uppercase;
-  color: var(--title);
+  color: var(--primary);
 }
 nav a span{
   font-weight: bold;
@@ -20,6 +19,13 @@ nav a span{
 nav .sidenav-trigger{
   margin: 0;
 }
+
+.nav-wrapper img {
+  height: 60px;
+  width: 60px;
+  
+}
+
 
 /* recipe styles */
 .recipes{
@@ -73,3 +79,12 @@ input{
 form .input-field{
   margin-top: 30px;
 }
+
+.custom-button {
+  background-color: white;
+  color: black;
+  font-size: 20px;
+  padding: 20px 30px;
+
+}
+
