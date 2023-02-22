@@ -14,7 +14,7 @@ const renderMed = (data, id) => {
 
   const html = `
     <div class="card-panel medication white row" data-id="${id}">
-      <img src="/img/pill.png" alt="medication thumb">
+      <img src="/public//img/pill.png" alt="medication thumb">
       <div class="medication-details">
         <div class="medication-title">${data.name}</div>
         <div class="medication-number_of_pills">${data.number_of_pills}</div>
