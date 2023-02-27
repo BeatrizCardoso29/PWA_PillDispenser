@@ -1,6 +1,6 @@
 {
-    "name": "Pill Dispenser",
-    "short_name": "PillDispenser",
+    "name": "Med Master",
+    "short_name": "MedMaster",
     "start_url": "/public/index.html",
     "display": "standalone",
     "background_color": "#FFE9D2",
