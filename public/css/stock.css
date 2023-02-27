@@ -154,9 +154,7 @@
   grid-template-areas: "details image delete";
   position: relative;
   }
-  .stock p{
-
-  }
+  
   .stock-delete{
   grid-area: delete;
   position: absolute;
