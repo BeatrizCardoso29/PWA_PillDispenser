@@ -1,4 +1,22 @@
 
+function changeLabel() {
+  document.getElementById("photo").innerHTML = "Your profile photo was saved!";
+}
+
+const passwordInput = document.getElementById('password');
+const passwordToggleBtn = document.querySelector('.password-toggle-btn');
+
+passwordToggleBtn.addEventListener('click', () => {
+  const pressed = passwordToggleBtn.getAttribute('aria-pressed') === 'true' || false;
+  passwordToggleBtn.setAttribute('aria-pressed', !pressed);
+  if (pressed) {
+    passwordInput.type = 'password';
+  } else {
+    passwordInput.type = 'text';
+  }
+});
+
+
 // enable offline data
 db.enablePersistence()
   .catch(function(err) {
@@ -11,98 +29,152 @@ db.enablePersistence()
     }
   });
 
-  
 db.collection('user').onSnapshot(snapshot => {
   //console.log(snapshot.docChanges());
   snapshot.docChanges().forEach(change => {
     console.log(change.type, change.doc.id, change.doc.data());
     if(change.type === 'added'){
-      console.log(change.doc.data()); 
-      console.log("test"); 
-      renderUser(change.doc.data(), change.doc.id);
     }
     if(change.type === 'removed'){
-      removeUser(change.doc.id);
     }
   });
 });
 
-// add new user
+
+//add new user
 const form_user = document.querySelector('.add-user');
 form_user.addEventListener('submit', evt => {
   evt.preventDefault();
+
+  const userEmail = form_user.email.value;
+
+  async function addUser (){
+
+    // Verificar se o email já existe
+    db.collection('user').where('email', '==', userEmail).get()
+    .then(async snapshot => {
+      if (snapshot.empty) {
+        // O email não existe, então adiciona o novo usuário
+
+        const user = {
+          username: form_user.username.value,
+          email: userEmail,
+          password: form_user.password.value,
+          pathology: form_user.pathology.value,
+          created:firestore, 
+          alert_time: form_user.alert_time.value
+        };
+
+        async function getLastUserId() {
+          const docRef = db.collection('user').orderBy('created', 'desc').limit(1);
+          console.log(docRef)
+          let lastUser = 0;
+
+          try {
+            const doc = await docRef.get();
+            console.log(doc)
+            if (!doc.empty) {
+              lastUser = doc.docs[0].id;
+              console.log(lastUser)
+            } else {
+              console.log('Não há documentos na coleção.');
+            }
+          } catch (error) {
+            console.log('Erro ao buscar documentos: ', error);
+          }
+
+          const nextId = parseInt(lastUser) + 1;
+          console.log(nextId)
+          const nextIdToString = nextId.toString();
+          console.log(nextIdToString)
+
+          var info = db.collection("info").doc("1");
+
+          info.get().then((doc) => {
+            info.update({
+              totalUsers: doc.data().totalUsers + 1
+          })
+          .then(() => {
+              console.log("Documento atualizado com sucesso!");
+          })
+          .catch((error) => {
+              console.error("Erro ao atualizar documento: ", error);
+          });
+        });
   
-  const user = {
-    username: form_user.username.value,
-    email: form_user.email.value,
-    password: form_user.password.value,
-    photo: form_user.photo.value,
-    pathology: form_user.pathology.value
-  };
+          db.collection('user').doc(nextIdToString).set(user).then((e) => {
+            form_user.reset();
+                window.location.href = "/public/pages/main.html?id=" + nextIdToString;
+          })
+          .catch(err => console.log(err))
+                
+        }
 
+        getLastUserId()
 
-  db.collection('user').add(user)
+      } else {
+        // O email já existe, então exibe uma mensagem de erro
+        const errorMessage = document.getElementById('error-email');
+
+        errorMessage.innerHTML = 'Este email já está sendo usado. Por favor, insira outro.';
+        errorMessage.style.color = 'black';
+        errorMessage.style.fontSize = '12px';
+            }
+
+    })
     .catch(err => console.log(err));
-    
-    
-    form_user.username.value = '';
-    form_user.email.value = '';
-    form_user.password.value = '';
-    form_user.pathology.value = '';
-    form_user.photo.value = '';
-  
+      }
+
+  addUser()
+ 
 });
 
-// remove user
-const userContainer = document.querySelector('.user');
-userContainer.addEventListener('click', evt => {
-  console.log(evt);
-  if(evt.target.tagName === 'I'){
-    const id = evt.target.getAttribute('data-id');
-    //console.log(id);
-    db.collection('user').doc(id).delete();
-  }
-})
 
-const  user = document.querySelector('.user');
+// log in user
+const form_login = document.querySelector('.login-user');
+form_login.addEventListener('submit', evt => {
+  evt.preventDefault();
 
-document.addEventListener('DOMContentLoaded', function() {
-  // nav menu
-  const menus = document.querySelectorAll('.side-menu');
-  M.Sidenav.init(menus, {edge: 'right'});
-  // add user form
-  const forms = document.querySelectorAll('.side-form');
-  M.Sidenav.init(forms, {edge: 'left'});
+  const email = form_login.email.value;
+  const password = form_login.password.value;
+  
+  db.collection('user').where('email', '==', email).get()
+  .then(snapshot => {
+    if (snapshot.empty) {
+        const errorMessage = document.getElementById('error-email2');
+        errorMessage.innerHTML = 'Email não encontrado. Por favor, insira outro.';
+        errorMessage.style.color = 'black';
+        errorMessage.style.fontSize = '12px';
+    }
+    else{
+        const user = snapshot.docs[0].data();
+        if (user.password !== password) {
+            const errorMessage = document.getElementById('error-password');
+        errorMessage.innerHTML = 'Password Incorreta. Por favor, tente novamente.';
+        errorMessage.style.color = 'black';
+        errorMessage.style.fontSize = '12px';
+          return;
+        } 
+        else{
+          const docRef = db.collection('user').where('email', '==', email);
+          docRef.get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+              window.location.href = "/public/pages/main.html?id=" + doc.id;
+            });
+          });
+        }
+    }
+  })
+  .catch(err => console.log(err));
+  form_login.reset();
+
+
 });
 
-// render user data
-const renderUser = (data, id) => {
-  
-  
 
-  const html = `
-    <div class="card-panel user white row" data-id="${id}">
-      <img src="/public//img/pill.png" alt="user thumb">
-      <div class="user-details">
-      <div class="user-email">${data.email}</div>
-        <div class="user-username">${data.username}</div>
-        <div class="user-password">${data.password}</div>
-        <div class="user-pathology">${data.pathology}</div>
-        <div class="user-photo">${data.photo}</div>
-      
-      </div>
-      <div class="user-delete">
-        <i class="material-icons" data-id="${id}">delete_outline</i>
-      </div>
-    </div>
-  `;
 
-  user.innerHTML += html;
 
-};
 
-// remove user
-const removeUser = (id) => {
-  const user = document.querySelector(`.user[data-id=${id}]`);
-  user.remove();
-};
+
+
+

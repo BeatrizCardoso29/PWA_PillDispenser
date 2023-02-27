@@ -1,0 +1,40 @@
+
+:root{
+    --primary: #ffffff;
+    --secondary: #b1fae8;
+    --title: #1de9b6;
+  }
+  nav{
+    background: var(--title);
+    border-bottom: 10px solid var(--title);
+  }
+  nav a{
+    text-transform: uppercase;
+    color: var(--primary);
+  }
+  nav a span{
+    font-weight: bold;
+  }
+  nav .sidenav-trigger{
+    margin: 0;
+  }
+  
+  .nav-wrapper img {
+    height: 55px;
+    width: 50px;
+    
+  }
+  
+  
+  .circle-img {
+    /*background-image: url("/public/img/IMG_5708.JPG");*/
+    background-size: cover;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    margin-left: 30px;
+  }
+  
+  .side-menu li a.you {
+    color: #fff;
+  }

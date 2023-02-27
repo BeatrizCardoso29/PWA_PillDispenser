@@ -3,11 +3,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Pill Dispenser </title>
+  <title>Med Master</title>
 
-  <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet">  <!-- materialize icons, css & js -->
+  <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet"> 
+  <!-- materialize icons, css & js -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" href="/public/css/styles.css" rel="stylesheet">
+  <link type="text/css" href="/public/css/stock.css" rel="stylesheet">
   <script type="text/javascript" src="/public/js/materialize.min.js"></script>
   <link rel="manifest" href="/public/manifest.json">
   <!-- ios support -->
@@ -17,68 +18,110 @@
 </head>
 
 <body class="grey lighten-4">
+  
+    <!-- top nav -->
+    <nav class="z-depth-0">
+        <div class="nav-wrapper container">
+            <img src="/public/img/icons/icon-72x72.png" alt="user thumb" style="width: 50px;">
+          <span class="right grey-text text-darken-1">
+            <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
+          </span>
+        </div>
+    </nav>
+    
+     <!-- side nav -->
+    
+    
+    <ul id="side-menu" class="sidenav side-menu">
+        <li><a class="subheader">MedMaster</a></li>
+        <li><div class="divider"></div></li>
+        <li style="display: flex; align-items: center;">
+          <div class="circle-img">
+            <img id="profile-pic" src="" alt="Profile picture">
+          </div>
+          <a href="#" class="waves-effect">Profile</a>
+        </li>        
+        <li><a href="/" class="waves-effect">Home</a></li>      
+        <li><a href="/" class="waves-effect">Medication History</a></li>
+        <li><a href="/" class="waves-effect">Stock History</a></li>    
+        <li><div class="divider"></div></li>
+        <li><a href="/public/pages/about.html" class="waves-effect">About</a></li>
+        <li><a href="/public/pages/contact.html" class="waves-effect">
+          <i class="material-icons">mail_outline</i>Contact</a>
+        </li>
+    </ul>
 
-  <!-- top nav -->
-  <nav class="z-depth-0">
-    <div class="nav-wrapper container">
-      <a href="/">Pill<span>Dispenser</span></a>
-      <span class="right grey-text text-darken-1">
-        <i class="material-icons sidenav-trigger" data-target="side-menu">menu</i>
-      </span>
-    </div>
-  </nav>
 
-  <!-- side nav -->
+    <!-- Stock -->
+    <div id="stock-content">
+          <!-- stock for today -->
+        <div class="stock container grey-text text-darken-1">
+            <label for="todaystock"> Your stock:</label>
+        </div>
+        <div id="circle-container">
+          <button id="button1">1</button>
+          <button id="button2">2</button>
+          <button id="button3">3</button>
+          <button id="button4">4</button>
+          <button id="button5">5</button>
+          <button id="button6">6</button>
+          <div class="center">
+            <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form_stock">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+        </div>
+         <!-- add stock side nav -->
+        <div id="side-form_stock" class="sidenav side-form">
+            <form class="add-stock container section">
+            <h6 >New pill</h6>
+            <div class="divider"></div>
+            <div class="input-field">
+                <input placeholder="e.g. trifen, ..." id="pill_name" type="text" class="validate">
+                <label for="pill_name"> Name </label>
+            </div>
+            <div class="input-field">
+                <input placeholder=" máx 30" id="qtd" type="number" class="validate">
+                <label for="qtd"> Number of pills </label>
+            </div>
+            <div class="input-row">
+              <label for="deposit"> Deposit number </label>
+              <div class="input-field">
+                <select id="deposit" name="deposit" required>
+                  <option value=""></option>
+                  <option value="1" ${usedDeposits.includes(1) ? 'disabled' : ''}>1</option>
+                  <option value="2" ${usedDeposits.includes(2) ? 'disabled' : ''}>2</option>
+                  <option value="3" ${usedDeposits.includes(3) ? 'disabled' : ''}>3</option>
+                  <option value="4" ${usedDeposits.includes(4) ? 'disabled' : ''}>4</option>
+                  <option value="5" ${usedDeposits.includes(5) ? 'disabled' : ''}>5</option>
+                  <option value="6" ${usedDeposits.includes(6) ? 'disabled' : ''}>6</option>
+                </select>
+              </div>
+            </div>
+            <div class="input-field center">
+                <button class="btn-small">Add</button>
+            </div>
+            </form>
+        </div>
+    </div> 
 
-  <ul id="side-menu" class="sidenav side-menu">
-    <li><a class="subheader">PillDispenser</a></li>
-    <li><a href="/" class="waves-effect">Home</a></li>
-    <li><a href="/public/pages/about.html" class="waves-effect">About</a></li>
-    <li><div class="divider"></div></li>
-    <li><a href="/public/pages/contact.html" class="waves-effect">
-      <i class="material-icons">mail_outline</i>Contact</a>
-    </li>
-</ul>
-
-
-  <!-- stock for today -->
-  <div class="stock container grey-text text-darken-1">
-  <label for="todaystock"> Your stock for today:</label>
-  </div>
-
-  <div class="center">
-    <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form">
-      <i class="material-icons">add</i>
-    </a>
-  </div>
-
-  <!-- add stock side nav -->
-  <div id="side-form" class="sidenav side-form">
-    <form class="add-stock container section">
-      <h6 >New pill</h6>
-      <div class="divider"></div>
-      <div class="input-field">
-        <input placeholder="e.g. trifen, ..." id="pill_name" type="text" class="validate">
-        <label for="pill_name"> Name </label>
-      </div>
-      <div class="input-field">
-        <input placeholder=" máx 30" id="qtd" type="number" class="validate">
-        <label for="qtd"> Number of pills </label>
-      </div>
-      <div class="input-field">
-        <input placeholder="e.g. 1 to 8" id="deposit" type="number" class="validate">
-        <label for="deposit"> Deposit number </label>
-      </div>
-      <div class="input-field center">
-        <button class="btn-small">Add</button>
-      </div>
-    </form>
-  </div>
+  
+    <nav class="bottom-nav">
+      <button id="botao1">
+        <i class="material-icons">date_range</i>
+        <span>Medication</span>
+      </button>
+      <button id="botao2">
+        <i class="material-icons">local_hospital</i>
+        <span>Stock</span>
+      </button>
+    </nav>
 
 
 <!-- FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-storage.js"></script>
   <script>
     // Initialize Firebase
     var config = {
@@ -90,14 +133,25 @@
       appId: "1:519016450812:web:579a7f5809c3dfcfba6579",
       measurementId: "G-KYB70DBE7M"
       };
+
       firebase.initializeApp(config);
       const db = firebase.firestore();
+      const fbTimestamp = firebase.firestore.FieldValue.serverTimestamp();
+      var storage = firebase.storage();
+
+  </script>
+
+  <script src="/public/js/app.js"></script>
+  <script src="/public/js/stock.js"></script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var select = document.querySelectorAll('select');
+      M.FormSelect.init(select);
+    });
   </script>
   
 
- 
-  <script src="/public/js/app.js"></script>
-  <script src="/public/js/stock.js"></script>
 
 </body>
 </html>

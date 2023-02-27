@@ -8,7 +8,7 @@
   <link type="text/css" href="/public/css/materialize.min.css" rel="stylesheet"> 
   <!-- materialize icons, css & js -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link type="text/css" href="/public/css/main.css" rel="stylesheet">
+  <link type="text/css" href="/public/css/main_artigo.css" rel="stylesheet">
   <script type="text/javascript" src="/public/js/materialize.min.js"></script>
   <link rel="manifest" href="/public/manifest.json">
   <!-- ios support -->
@@ -31,19 +31,16 @@
     
      <!-- side nav -->
     
-    
     <ul id="side-menu" class="sidenav side-menu">
         <li><a class="subheader">MedMaster</a></li>
         <li><div class="divider"></div></li>
         <li style="display: flex; align-items: center;">
-          <div class="circle-img">
-            <img id="profile-pic" src="" alt="Profile picture">
-          </div>
-          <a href="#" class="waves-effect">Profile</a>
-        </li>        
-        <li><a href="/" class="waves-effect">Home</a></li>      
+            <div class="circle-img"></div>
+            <a href="/public/pages/profile.html" class="waves-effect">Profile</a>
+        </li>
+        <li><a href="/" class="waves-effect">Home</a></li>   
         <li><a href="/" class="waves-effect">Medication History</a></li>
-        <li><a href="/" class="waves-effect">Stock History</a></li>    
+        <li><a href="/" class="waves-effect">Stock History</a></li>        
         <li><div class="divider"></div></li>
         <li><a href="/public/pages/about.html" class="waves-effect">About</a></li>
         <li><a href="/public/pages/contact.html" class="waves-effect">
@@ -52,13 +49,24 @@
     </ul>
     
 
-      
-      <div id="med-content">
+      <div id="medication-content">
 
-        <!-- medication for today -->
         <div id="date-display"></div>
-        <div class="med container grey-text text-darken-1">
+          <!-- medication for today -->
+          <div class="stock container grey-text text-darken-1">
             <label for="todaystock"> Your medication for today:</label>
+          </div>
+
+        
+        <div class="card-panel stock white row" data-id="${id}">
+            <div class="med-details">
+                <div class="med-pill_name">Aerius</div>
+                <div class="med-dose"> Dose: 1</div>
+            </div>
+            <div class="stock-clock">
+                <input type="time" name="alarm" class="timepicker" value="08:00">
+            </div>
+            <div> <i class="material-icons"> check_box</i></div>
         </div>
 
         <div class="center">
@@ -66,22 +74,19 @@
                 <i class="material-icons">add</i>
             </a>
         </div>
-
         <div id="side-form_med" class="sidenav side-form">
           <form class="add-medication container section">
             <h6>New Medication</h6>
             <div class="divider"></div>
             <div class="input-row">
+              <label class="form-label" for="pill">Pill:</label>
               <div class="input-field">
-                <input placeholder="check your stock to see pills availabel" id="pill_name" type="text" class="validate" required>
-                <label for="pill_name">Pill name:</label>
-              </div>	
-            </div>
-            <div id="error-pname"></div>
-            <div class="input-row">
-              <div class="input-field">
-                <input id="dose" type="number" class="validate" required>
-                <label for="dose">Dose:</label>
+                <select id="pill" name="pill" required>
+                  <option value="Choose an option"></option>
+                  <option value="pill1">Pill 1</option>
+                  <option value="pill2">Pill 2</option>
+                  <option value="pill3">Pill 3</option>
+                </select>
               </div>
             </div>
             <div class="input-row">
@@ -93,10 +98,11 @@
             <div class="input-row">
               <label class="form-label" for="finite_duration">Duration:</label>
               <div class="input-field">
-                <select id="finite_duration" name="finite_duration" required>  
+                <select id="finite_duration" name="finite_duration" required>
+                    
                   <option value="Choose an option"></option>
-                    <option value=true> End Date </option>
-                    <option value=false> Consistently </option>
+                    <option value="T"> End Date </option>
+                    <option value="F"> Consistently </option>
                   </select>
               </div>
             </div>
@@ -110,10 +116,10 @@
               <label class="form-label" for="mode">Mode:</label>
               <div class="input-field">
                 <select id="mode" name="mode" required>
-                  <option value=""></option>
-                  <option value="P"> Pill Box </option>
-                  <option value="F"> Home Dispenser</option>
-                  <option value="D"> Depends on the days </option>
+                  <option value="Choose an option"></option>
+                  <option value="P">Dispensador Portátil</option>
+                  <option value="F">Dispensador Portátil</option>
+                  <option value="B">Depende dos dias</option>
                 </select>
               </div>
             </div>
@@ -123,6 +129,12 @@
                 <input type="time" id="med_time" name="med_time" required>
               </div>
             </div>
+            <div class="input-row">
+              <label class="form-label" for="alert_time">Alert time:</label>
+              <div class="input-field">
+                <input type="time" id="alert_time" name="alert_time" required>
+              </div>
+            </div>
             <div class="input-field center">
                 <button class="btn-small">Add</button>
             </div>
@@ -130,24 +142,67 @@
         </div>       
       </div>
 
-      <nav class="bottom-nav">
-        <button id="botao1">
-          <i class="material-icons">date_range</i>
-          <span>Medication</span>
-        </button>
-        <button id="botao2">
-          <i class="material-icons">local_hospital</i>
-          <span>Stock</span>
-        </button>
-      </nav>
-      
 
-  
+    <div id="stock-content">
+          <!-- stock for today -->
+        <div class="stock container grey-text text-darken-1">
+            <label for="todaystock"> Your stock:</label>
+        </div>
+        
+
+        <div class="card-panel stock white row" data-id="${id}">
+            <div class="stock-deposit">1</div>
+            <div class="stock-details">
+              <div class="stock-pill_name"> Aerius </div>
+              <div class="stock-qtd"> Number of pills: 20 </div>
+            </div>
+            <div class="stock-delete">
+              <i class="material-icons" data-id="${id}">delete_outline</i>
+            </div>
+        </div>
+
+        <div class="center">
+            <a class="btn-floating btn-small btn-large add-btn sidenav-trigger" data-target="side-form_stock">
+                <i class="material-icons">add</i>
+            </a>
+        </div>
+
+         <!-- add stock side nav -->
+        <div id="side-form_stock" class="sidenav side-form">
+            <form class="add-stock container section">
+            <h6 >New pill</h6>
+            <div class="divider"></div>
+            <div class="input-field">
+                <input placeholder="e.g. trifen, ..." id="pill_name" type="text" class="validate">
+                <label for="pill_name"> Name </label>
+            </div>
+            <div class="input-field">
+                <input placeholder=" máx 30" id="qtd" type="number" class="validate">
+                <label for="qtd"> Number of pills </label>
+            </div>
+            <div class="input-field">
+                <input placeholder="1 to 6" id="deposit" type="number" class="validate">
+                <label for="deposit"> Deposit number </label>
+            </div>
+            <div class="input-field center">
+                <button class="btn-small">Add</button>
+            </div>
+            </form>
+        </div>
+    </div> 
+
+     <!-- bottom nav -->
+     <nav class="bottom-nav">
+      <ul>
+        <li><a href="#" onclick="switchContent('medication')">Medication</a></li>
+        <li><a href="#" onclick="switchContent('stock')">Stock</a></li>
+      </ul>
+  </nav>
+     
 
 <!-- FIREBASE -->
   <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-firestore.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/5.11.0/firebase-storage.js"></script>
   <script>
     // Initialize Firebase
     var config = {
@@ -159,24 +214,19 @@
       appId: "1:519016450812:web:579a7f5809c3dfcfba6579",
       measurementId: "G-KYB70DBE7M"
       };
-
       firebase.initializeApp(config);
       const db = firebase.firestore();
-	    const firestore = firebase.firestore.Timestamp.now();
-      const fbTimestamp = firebase.firestore.FieldValue.serverTimestamp();
-      var storage = firebase.storage();
-
   </script>
 
   <script src="/public/js/app.js"></script>
-  <script src="/public/js/main.js"></script>
-
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      var select = document.querySelectorAll('select');
-      M.FormSelect.init(select);
-    });
-  </script>
+  <script src="/public/js/main_artigo.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var select = document.querySelectorAll('select');
+    M.FormSelect.init(select);
+  });
+</script>
   
 
 
