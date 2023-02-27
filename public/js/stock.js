@@ -341,52 +341,26 @@ db.collection('user').doc(userId).get()
 
 // STOCK --------------------------------------------------------------------------
 
-// db.collection('stock').onSnapshot(snapshot => {
-//     //console.log(snapshot.docChanges());
-//     snapshot.docChanges().forEach(change => {
-//       console.log(change.type, change.doc.id, change.doc.data());
-//       if(change.type === 'added'){
-//         renderstock(change.doc.data(), change.doc.id);
-//       }
-//       if(change.type === 'removed'){
-//         removestock(change.doc.id);
-//       }
-//     });
-//   });
+db.collection('stock').onSnapshot(snapshot => {
+    //console.log(snapshot.docChanges());
+    snapshot.docChanges().forEach(change => {
+      console.log(change.type, change.doc.id, change.doc.data());
+      if(change.type === 'added'){
+      }
+      if(change.type === 'removed'){
+        removestock(change.doc.id);
+      }
+    });
+  });
 
-
-//   // render stock data
-
-// const renderstock = (data, id) => {
-
-//   const html = `
-//     <div class="card-panel stock white row" data-id="${id}">
-//       <div class="stock-deposit">${data.deposit}</div>
-//       <div class="stock-details">
-//         <div class="stock-pill_name">${data.pill_name}</div>
-//         <div class="stock-qtd"> Number of pills: ${data.qtd}</div>
-//       </div>
-//       <div class="stock-delete">
-//         <i class="material-icons" data-id="${id}">delete_outline</i>
-//       </div>
-//     </div>
-//   `;
-
-//   stock.innerHTML += html;
-
-// };
-
-// // remove stock
-// const removestock = (id) => {
-//   const stock_out = document.querySelector(`.stock[data-id=${id}]`);
-//   stock_out.remove();
-// };
+// remove stock
+const removestock = (id) => {
+  const stock_out = document.querySelector(`.stock[data-id=${id}]`);
+  stock_out.remove();
+};
   
-
-
 // Referência para a coleção 'stock'
 const stockRef = db.collection('stock');
-
 
 document.addEventListener("DOMContentLoaded", () => {
   db.collection("stock").get().then((querySnapshot) => {
