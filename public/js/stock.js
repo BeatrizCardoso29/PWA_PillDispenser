@@ -1,9 +1,4 @@
 
-const urlParams = new URLSearchParams(window.location.search);
-const userId = urlParams.get('id');
-console.log(userId);
-
-
 //switch content
 const botao1 = document.getElementById("botao1");
 const botao2 = document.getElementById("botao2");
